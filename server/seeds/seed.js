@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Category = require('../models/Category');
 const Subcategory = require('../models/Subcategory');

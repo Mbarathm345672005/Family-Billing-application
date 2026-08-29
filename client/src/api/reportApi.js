@@ -12,7 +12,8 @@ export const reportApi = {
     }
     if (personId) params.append('personId', personId);
 
-    const response = await axios.get(`/api/expenses/report?${params.toString()}`, {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+    const response = await axios.get(`${baseUrl}/expenses/report?${params.toString()}`, {
       responseType: 'blob',
     });
 

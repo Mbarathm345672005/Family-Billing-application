@@ -1,12 +1,14 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
+
 const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 15000,
+  timeout: 20000,
 });
 
 apiClient.interceptors.response.use(
