@@ -8,22 +8,41 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 20000,
+  timeout: 60000, // 60s to accommodate Render free-tier cold-starts
 });
 
+// Interceptor with auto-retry for Render spin-up delays
 apiClient.interceptors.response.use(
   (response) => response.data,
-  (error) => {
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Retry once if Render returns 502/503/504 or network timeout on cold start
+    if (
+      originalRequest &&
+      !originalRequest._retry &&
+      (error.response?.status === 502 ||
+        error.response?.status === 503 ||
+        error.response?.status === 504 ||
+        error.code === 'ECONNABORTED' ||
+        error.message === 'Network Error')
+    ) {
+      originalRequest._retry = true;
+      console.warn('[API Client]: Server waking up, retrying request in 3s...');
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      return apiClient(originalRequest);
+    }
+
     const message =
       error.response?.data?.message ||
       error.message ||
       'An unexpected network error occurred';
-    
-    // Do not show double toast for report download cancellations
+
+    // Do not show double log for report download cancellations
     if (error.config?.responseType !== 'blob') {
       console.error('[API Error Interceptor]:', message);
     }
-    
+
     return Promise.reject(new Error(message));
   }
 );
