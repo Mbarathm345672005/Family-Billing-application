@@ -54,22 +54,16 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-const startServer = async () => {
+app.listen(PORT, '0.0.0.0', async () => {
+  console.log(`=========================================`);
+  console.log(`  HomeLedger Server running on port ${PORT}`);
+  console.log(`  Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`=========================================`);
+  
   try {
     await connectDB();
     await checkAndAutoSeed();
-
-    app.listen(PORT, () => {
-      console.log(`=========================================`);
-      console.log(`  HomeLedger Server running on port ${PORT}`);
-      console.log(`  Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`  API Health: http://localhost:${PORT}/api/health`);
-      console.log(`=========================================`);
-    });
   } catch (err) {
-    console.error('Server startup failed:', err);
-    process.exit(1);
+    console.error('[Server Initialization Error]:', err.message);
   }
-};
-
-startServer();
+});
