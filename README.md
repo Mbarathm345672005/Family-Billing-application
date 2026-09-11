@@ -36,6 +36,22 @@
 
 ---
 
+## Screenshots
+- **page 1**
+  <img width="1763" height="2239" alt="Screenshot_11-9-2026_194119_family-billing-application vercel app" src="https://github.com/user-attachments/assets/68e1081c-d970-420a-8024-c490d4e1b15b" />
+
+- **page 2**
+  <img width="1911" height="913" alt="image" src="https://github.com/user-attachments/assets/147d7782-3216-4bfe-abff-2ee00cd9e210" />
+
+- **page 3**
+  <img width="1681" height="917" alt="image" src="https://github.com/user-attachments/assets/7877b6fa-9882-4fdd-96d5-08087c735bd9" />
+
+- **page 4**
+  <img width="1890" height="919" alt="image" src="https://github.com/user-attachments/assets/492f1a84-09d9-4c35-a2dc-9cd9973d799e" />
+
+
+
+
 ## 🛠️ Tech Stack & Architecture
 
 - **Backend**: Node.js, Express.js, MongoDB, Mongoose ODM, Express-Validator, PDFKit, JSON2CSV, CORS, Dotenv.
